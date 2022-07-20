@@ -26,21 +26,21 @@ const BasketScreen = () => {
     }, [Items])
 
     return (
-        <SafeAreaView className="bg-white flex-1" style={{ borderTopStartRadius: 20, borderTopEndRadius: 20, }}>
+        <SafeAreaView className="flex-1 bg-white" style={{ borderTopStartRadius: 20, borderTopEndRadius: 20, }}>
             <View className="flex-1 bg-gray-100" style={{ borderTopStartRadius: 20, borderTopEndRadius: 20, }}>
                 <View className="p-5 border-b border-[#00CCBB] bg-white shadow-xs" style={{ borderTopStartRadius: 20, borderTopEndRadius: 20, }}>
                     <View>
                         <Text className="text-2xl font-bold text-center">Basket</Text>
                         <Text className="text-center text-gray-400">{restaurant.title}</Text>
                     </View>
-                    <TouchableOpacity className="rounded-full bg-gray-200 absolute top-1 right-3" onPress={navigation.goBack}>
+                    <TouchableOpacity className="absolute bg-gray-200 rounded-full top-1 right-3" onPress={navigation.goBack}>
                         <XCircleIcon color="#00CCBB" size={40} />
                     </TouchableOpacity>
                 </View>
-                <View className="flex-row bg-white space-x-4 py-4 px-3 my-2 items-center">
+                <View className="flex-row items-center px-3 py-4 my-2 space-x-4 bg-white">
                     <Image
                         source={{ uri: "https://links.papareact.com/wru" }}
-                        className="h-12 w-12 bg-gray-100 rounded-full p-4"
+                        className="w-12 h-12 p-4 bg-gray-100 rounded-full"
                     />
                     <Text className="font-semibold">Deliver in 50-75 mins!</Text>
                     <TouchableOpacity>
@@ -49,13 +49,13 @@ const BasketScreen = () => {
                 </View>
                 <ScrollView className="divide-y divide-gray-200">
                     {Object.entries(groupedInBasket).map(([key, items]) => (
-                        <View key={key} className="flex-row space-x-3 items-center bg-white py-3 px-5">
+                        <View key={key} className="flex-row items-center px-5 py-3 space-x-3 bg-white">
                             <Text>
                                 {items.length} x
                             </Text>
                             <Image
                                 source={{ uri: urlFor(items[0]?.image).url() }}
-                                className="h-12 w-12 rounded-full"
+                                className="w-12 h-12 rounded-full"
                             />
                             <Text className="flex-1">{items[0]?.name}</Text>
                             <Text className="text-gray-600">
@@ -64,7 +64,7 @@ const BasketScreen = () => {
                             <TouchableOpacity className="">
                                 <Text
                                     onPress={() => dispatch(removeFromBasket({ id: key }))}
-                                    className="text-red-500 text-md rounded-lg">
+                                    className="text-red-500 rounded-lg text-md">
 
                                     Remove
                                 </Text>
@@ -91,8 +91,10 @@ const BasketScreen = () => {
                             <Currency quantity={basketTotal + (0.18 * basketTotal)} currency="INR" />
                         </Text>
                     </View>
-                    <TouchableOpacity className="bg-[#00CCBB] p-4 rounded-xl">
-                        <Text className="text-center text-md font-extrabold text-white">Place Order!</Text>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("PreparingOrder")}
+                        className="bg-[#00CCBB] p-4 rounded-xl">
+                        <Text className="font-extrabold text-center text-white text-md">Place Order!</Text>
                     </TouchableOpacity>
                 </View>
             </View>
